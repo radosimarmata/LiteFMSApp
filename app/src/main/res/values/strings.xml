@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">META Mine</string>
+    <string name="settings">Settings</string>
+    <string name="home">Login</string>
+    <string name="nrp">NRP</string>
+    <string name="vehicle_id">Vehicle ID</string>
+    <string name="save">Save</string>
+    <string name="oke">OK</string>
+    <string name="update">Update</string>
+    <string name="Logout">Log Out</string>
+    <string name="api_vehicle">"https://api.babari.app/chs/vehicle"</string>
+    <string name="api_map">"https://api.babari.app/chs/map"</string>
+    <string name="api_operator">"https://api.babari.app/chs/operator/get"</string>
+    <string name="api_operator_log">"https://api.babari.app/chs/operator/log"</string>
+    <string name="api_shift">"https://api.babari.app/chs/shift"</string>
+    <string name="api_msg">"https://api.babari.app/chs/message/"</string>
+    <string name="api_trklog">"https://api.babari.app/chs/trk_log/"</string>
+    <string name="api_fleet_dt">"https://api.babari.app/chs/fleet_dt/"</string>
+
+</resources>
