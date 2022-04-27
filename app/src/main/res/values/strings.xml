@@ -4,11 +4,12 @@
     <string name="home">Login</string>
     <string name="nrp">NRP</string>
     <string name="vehicle_id">Vehicle ID</string>
+    <string name="creator">Creator</string>
     <string name="save">Save</string>
     <string name="oke">OK</string>
     <string name="update">Update</string>
     <string name="Logout">Log Out</string>
-    <string name="api_vehicle">"https://api.babari.app/chs/vehicle"</string>
+    <string name="api_vehicle">https://api.babari.app/chs/vehicle"</string>
     <string name="api_map">"https://api.babari.app/chs/map"</string>
     <string name="api_operator">"https://api.babari.app/chs/operator/get"</string>
     <string name="api_operator_log">"https://api.babari.app/chs/operator/log"</string>

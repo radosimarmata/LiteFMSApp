@@ -86,7 +86,7 @@ public class PanelActivity extends AppCompatActivity {
     GeoPoint g_circle, startMap;
     Double mylat, mylong;
     Time stop_tm, start_tm;
-    String url_get_map,url_message, url_assigment, url_trk_log, url_operator_log, id_log, nrp, opr_name, unit_name, unit_id, id_shift, shift_id, shift_ds, location, assigment, msg_id, msg_text, msg_time,id_shift_logout;
+    String creator_id, url_get_map,url_message, url_assigment, url_trk_log, url_operator_log, id_log, nrp, opr_name, unit_name, unit_id, id_shift, shift_id, shift_ds, location, assigment, msg_id, msg_text, msg_time,id_shift_logout;
     int timemsg;
     Boolean msg_show;
     ArrayList<HashMap<String, String>> list_map, list_assigment, list_inbox;
@@ -152,6 +152,7 @@ public class PanelActivity extends AppCompatActivity {
         shift_ds = (String) getIntent().getStringExtra("shift_desc");
         unit_name = (String) getIntent().getStringExtra("unit_name");
         unit_id = (String) getIntent().getStringExtra("unit_id");
+        creator_id = (String) getIntent().getStringExtra("creator_id");
 
         url_get_map = getString(R.string.api_map);
         url_trk_log = getString(R.string.api_trklog) + "/" + unit_id;
@@ -529,7 +530,7 @@ public class PanelActivity extends AppCompatActivity {
         mapController.setZoom(17.0D);
 
         dBmain = new DBmain(this);
-        Cursor rs = dBmain.getMap();
+        Cursor rs = dBmain.getMap(creator_id);
         if(rs.moveToNext())
         {
             while (!rs.isAfterLast())
@@ -588,7 +589,7 @@ public class PanelActivity extends AppCompatActivity {
                         p_circle.setPoints(Polygon.pointsAsCircle(g_circle, radius));
                         p_circle.setFillColor(Color.parseColor("#" + hexColor));
                         p_circle.setStrokeWidth(0);
-                        p_circle.getOutlinePaint().setColor(polygon.getFillPaint().getColor());
+                        p_circle.getOutlinePaint().setColor(Color.parseColor("#" + hexColor));
                         marker = new Marker(map);
 //                        marker.setIcon(getDrawable(R.drawable.ic_location));
                         marker.setIcon(null);

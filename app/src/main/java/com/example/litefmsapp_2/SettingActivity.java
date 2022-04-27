@@ -102,13 +102,15 @@ public class SettingActivity extends AppCompatActivity {
                                     map.put("vehicle_id", json.getString("vehicle_id"));
                                     map.put("egi_id", json.getString("egi_id"));
                                     map.put("eq_class_id", json.getString("eq_class_id"));
+                                    map.put("creator_id", json.getString("creator_id"));
                                     list_vehicle.add(map);
                                     String id = list_vehicle.get(i).get("id");
                                     String name = list_vehicle.get(i).get("name");
                                     String vehicle_id = list_vehicle.get(i).get("vehicle_id");
                                     String egi_id = list_vehicle.get(i).get("egi_id");
                                     String eq_class_id = list_vehicle.get(i).get("eq_class_id");
-                                    dBmain.insert_tbl_vehicle(id, vehicle_id, name, egi_id, eq_class_id);
+                                    String creator_id = list_vehicle.get(i).get("creator_id");
+                                    dBmain.insert_tbl_vehicle(id, vehicle_id, name, egi_id, eq_class_id, creator_id);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -204,7 +206,6 @@ public class SettingActivity extends AppCompatActivity {
                                     String start_time = list_shift.get(i).get("start_time");
                                     String stop_time = list_shift.get(i).get("stop_time");
                                     String description = list_shift.get(i).get("description");
-                                    System.out.println("id : " + id);
                                     dBmain.insert_tbl_shift(id, name, start_time,stop_time ,description);
                                 }
                                 Cursor rs_shift = dBmain.getShift();
@@ -233,7 +234,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Cursor rs = dBmain.getVehicleID(input_vehicle.getText().toString());
                 if(rs.moveToFirst()){
-                    dBmain.updatetbl_unit(1,rs.getString(1), rs.getString(2));
+                    dBmain.updatetbl_unit(1,rs.getString(1), rs.getString(2), rs.getString(5));
                     SweetAlertDialog pDialog = new SweetAlertDialog(SettingActivity.this, SweetAlertDialog.SUCCESS_TYPE);
                     pDialog.setTitleText("Data berhasil di simpan");
                     pDialog.show();

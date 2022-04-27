@@ -25,7 +25,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class MainActivity extends AppCompatActivity {
     Button btn_login;
     EditText input_nrp;
-    String input_nrp_val, id_shift, shift_id, shift_ds, opr_name, unit_name;
+    String input_nrp_val, id_shift, shift_id, shift_ds, opr_name, unit_name, creator_id;
     DBmain dBmain;
     Time stop_tm, start_tm;
     ImageButton img_logo;
@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
+
                 }else{
                     Cursor rs = dBmain.operatorLogin(input_nrp_val);
                     if(rs.getCount()>0)
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                         Cursor lu = dBmain.get_tbl_unit();
                         lu.moveToFirst();
                         unit_name = lu.getString(2);
+                        creator_id = lu.getString(3);
                         Cursor ls = dBmain.getShift();
                         ls.moveToFirst();
                         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -101,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("shift_desc", shift_ds);
                         intent.putExtra("shift_id", shift_id);
                         intent.putExtra("unit_name", unit_name);
+                        intent.putExtra("creator_id", creator_id);
                         intent.putExtra("unit_id", lu.getString(1));
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

@@ -23,11 +23,11 @@ public class DBmain extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query = "create table " + TABLE_UNIT + "(id integer primary key, vehicle_id Varchar , name text);";
+        String query = "create table " + TABLE_UNIT + "(id integer primary key, vehicle_id Varchar , name text, creator_id varchar);";
         db.execSQL(query);
         String insert_tbl_unit = "INSERT INTO "+TABLE_UNIT+" (id, vehicle_id, name) VALUES ('1', '24436215', 'DT08');";
         db.execSQL(insert_tbl_unit);
-        String q_vehicle = "create table " + TABLE_VEHICLE + "(id integer primary key, vehicle_id varchar, name text, egi_id varchar, eq_class_id varchar);";
+        String q_vehicle = "create table " + TABLE_VEHICLE + "(id integer primary key, vehicle_id varchar, name text, egi_id varchar, eq_class_id varchar, creator_id varchar);";
         db.execSQL(q_vehicle);
         String q_map = "create table " + TABLE_MAP + " (id integer primary key, name varchar, description text, rid varchar, p text, t varchar, c varchar, b varchar);";
         db.execSQL(q_map);
@@ -53,17 +53,18 @@ public class DBmain extends SQLiteOpenHelper {
         return res;
     }
 
-    public boolean updatetbl_unit(Integer id, String vehicle_id, String name)
+    public boolean updatetbl_unit(Integer id, String vehicle_id, String name, String creator_id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("vehicle_id", vehicle_id);
         contentValues.put("name", name);
+        contentValues.put("creator_id", creator_id);
         db.update("tbl_unit", contentValues, "id = ?", new String[]{ Integer.toString(id)});
         return true;
     }
 
-    public long insert_tbl_vehicle(String id, String vehicle_id, String name, String egi_id, String eq_class_id)
+    public long insert_tbl_vehicle(String id, String vehicle_id, String name, String egi_id, String eq_class_id, String creator_id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -72,6 +73,7 @@ public class DBmain extends SQLiteOpenHelper {
         contentValues.put("name", name);
         contentValues.put("egi_id", egi_id);
         contentValues.put("eq_class_id", eq_class_id);
+        contentValues.put("creator_id", creator_id);
         long i = db.insert("tbl_vehicle", null, contentValues );
         return i;
     }
@@ -102,10 +104,10 @@ public class DBmain extends SQLiteOpenHelper {
         long i = db.insert("tbl_map", null, contentValues );
         return i;
     }
-    public Cursor getMap()
+    public Cursor getMap(String creator_id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM tbl_map", null);
+        Cursor res = db.rawQuery("SELECT * FROM tbl_map where rid = '" + creator_id + "'" , null);
         return res;
     }
     public Cursor getMapList()
