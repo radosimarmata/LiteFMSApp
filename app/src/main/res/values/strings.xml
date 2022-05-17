@@ -17,5 +17,6 @@
     <string name="api_msg">"https://api.babari.app/chs/message/"</string>
     <string name="api_trklog">"https://api.babari.app/chs/trk_log/"</string>
     <string name="api_fleet_dt">"https://api.babari.app/chs/fleet_dt/"</string>
+    <string name="api_device">"https://api.babari.app/chs/device/"</string>
 
 </resources>

@@ -60,6 +60,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -101,6 +102,7 @@ public class PanelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_panel);
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Bangkok"));
         context = this;
         timemsg = 1000;
         btn_logout = findViewById(R.id.btn_logout);
@@ -370,11 +372,13 @@ public class PanelActivity extends AppCompatActivity {
                                     msg_time = msg_time.replace("Z", "").replace("T", " ");
                                 }
                                 Date date_msg = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(msg_time);
+
                                 Date date_now = new Date();
 
                                 long minutesd = TimeUnit.MILLISECONDS.toMinutes(date_msg.getTime());
                                 long minutesn = TimeUnit.MILLISECONDS.toMinutes(date_now.getTime());
                                 long cek_10min = minutesn - minutesd;
+
                                 if(cek_10min<= 10){
                                     timemsg = (int) ((11 - cek_10min)*60000);
                                     msg_show = true;

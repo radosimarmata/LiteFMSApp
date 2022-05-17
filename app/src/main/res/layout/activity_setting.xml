@@ -31,8 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/title_app"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
         android:layout_marginTop="70dp"
+        android:layout_marginRight="30dp"
         android:background="#fff"
         android:elevation="4dp"
         android:padding="20dp">
@@ -54,13 +54,13 @@
                     android:id="@+id/input_vehicle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/primary"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
                     android:hint="@string/vehicle_id"
-                    android:inputType="text"
                     android:imeOptions="actionDone"
-                    android:minHeight="48dp"/>
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    android:textColor="@color/primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -68,40 +68,40 @@
             <GridLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="22dp"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:layout_margin="22dp">
 
                 <Button
                     android:id="@+id/btn_update"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/secondary"
                     android:layout_marginEnd="100dp"
+                    android:backgroundTint="@color/secondary"
+                    android:text="@string/update"
                     android:textAllCaps="true"
                     android:textColor="#FFF"
-                    android:textSize="18sp"
-                    android:text="@string/update"/>
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/btn_submit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/primary"
                     android:layout_marginEnd="100dp"
+                    android:backgroundTint="@color/primary"
+                    android:text="@string/save"
                     android:textAllCaps="true"
                     android:textColor="#FFF"
-                    android:textSize="18sp"
-                    android:text="@string/save"/>
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/btn_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/dark"
+                    android:text="@string/oke"
                     android:textAllCaps="true"
                     android:textColor="#FFF"
-                    android:textSize="18sp"
-                    android:text="@string/oke"/>
+                    android:textSize="18sp" />
 
             </GridLayout>
 

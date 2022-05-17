@@ -17,6 +17,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.sql.Time;
 import java.sql.Timestamp;
 
@@ -25,10 +34,15 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class MainActivity extends AppCompatActivity {
     Button btn_login;
     EditText input_nrp;
-    String input_nrp_val, id_shift, shift_id, shift_ds, opr_name, unit_name, creator_id;
+    String input_nrp_val, id_shift, shift_id, shift_ds, opr_name, unit_name, creator_id, device_id, url_device,r_id, r_device_id, r_mac_address;
     DBmain dBmain;
+    private RequestQueue getDevice;
     Time stop_tm, start_tm;
     ImageButton img_logo;
+    JSONObject jsonDevice;
+    JSONArray arrayDevice;
+    StringRequest stringReq;
+    SweetAlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +55,50 @@ public class MainActivity extends AppCompatActivity {
 
         img_logo.setImageResource(R.drawable.logo);
 
+        device_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        url_device = getString(R.string.api_device) + device_id;
+        getDevice = Volley.newRequestQueue(MainActivity.this);
+
         dBmain = new DBmain(this);
+        Cursor tes = dBmain.gettbldevice();
+        if(!tes.moveToFirst())
+        {
+            if(DetectConnection.checkInternetConnection(MainActivity.this))
+            {
+                stringReq = new StringRequest(Request.Method.GET, url_device, response -> {
+                    try {
+                        jsonDevice = new JSONObject(response);
+                        arrayDevice = jsonDevice.getJSONArray("results");
+                        if(arrayDevice.length()>=1)
+                        {
+                            for (int i = 0; i < arrayDevice.length(); i++) {
+                                r_device_id = arrayDevice.getJSONObject(i).getString("device_id");
+                            }
+                            dBmain.insert_tbl_device(r_id, r_device_id);
+                        }else{
+                            finish();
+                            System.exit(0);
+                        }
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                }, volleyError -> System.out.println(volleyError.getMessage()));
+                getDevice.add(stringReq);
+            }else{
+                alertDialog = new SweetAlertDialog(MainActivity.this, SweetAlertDialog.ERROR_TYPE);
+                alertDialog.setTitleText("Oops...")
+                        .setContentText("Tidak ada Koneksi")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                finish();
+                                System.exit(0);
+                            }
+                        })
+                        .show();
+
+            }
+        }
 
         shift_id = null;
         shift_ds = null;

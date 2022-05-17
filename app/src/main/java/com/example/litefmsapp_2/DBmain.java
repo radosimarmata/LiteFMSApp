@@ -15,6 +15,7 @@ public class DBmain extends SQLiteOpenHelper {
     private static final String TABLE_OPERATOR = "tbl_operator";
     private static final String TABLE_OPR_LOG = "tbl_opr_log";
     private static final String TABLE_SHIFT = "tbl_shift";
+    private static final String TABLE_DEVICE = "tbl_device";
     private static final int DATABASE_VERSION = 1;
 
     public DBmain(Context context){
@@ -37,6 +38,8 @@ public class DBmain extends SQLiteOpenHelper {
         db.execSQL(q_shift);
         String q_oprlog = "create table " + TABLE_OPR_LOG + "(id integer primary key, nrp TEXT , vehicle_id varchar, time_stamp DATETIME, shift_id TEXT, stat_log varchar, flag varchar);";
         db.execSQL(q_oprlog);
+        String q_device = "create table " + TABLE_DEVICE + "(id integer primary key, device_id TEXT);";
+        db.execSQL(q_device);
     }
 
     @Override
@@ -204,6 +207,22 @@ public class DBmain extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         int del = db.delete("tbl_opr_log", "stat_log = ?", new String[]{stat_log});
         return del;
+    }
+
+    public Cursor gettbldevice()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM tbl_device", null);
+        return res;
+    }
+    public long insert_tbl_device(String id, String device_id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("id", id);
+        contentValues.put("device_id", device_id);
+        long i = db.insert("tbl_device", null, contentValues );
+        return i;
     }
 
 }
